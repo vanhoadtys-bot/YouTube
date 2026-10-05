@@ -1,11 +1,11 @@
 #pragma once
 #include "driver/ledc.h"
 
-// GPIO pins — adjust to your wiring
-#define SERVO_FL_GPIO  3
-#define SERVO_FR_GPIO  4
-#define SERVO_BL_GPIO  5
-#define SERVO_BR_GPIO  6
+// GPIO pins — Chuyển đổi sang mạch tím ESP32-S3
+#define SERVO_FL_GPIO  39  // Chân Trước - Bên Trái
+#define SERVO_FR_GPIO  40  // Chân Trước - Bên Phải
+#define SERVO_BL_GPIO  43  // Chân Sau - Bên Trái
+#define SERVO_BR_GPIO  44  // Chân Sau - Bên Phải
 
 // LEDC channels, one per servo
 #define SERVO_FL_CH    LEDC_CHANNEL_0

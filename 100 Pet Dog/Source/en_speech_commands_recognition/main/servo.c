@@ -27,12 +27,12 @@ static void set_fl(int deg)
 static void set_fr(int deg)
 {
     cur.fr = deg;
-    servo_set_angle(SERVO_FR_CH, 180 - deg);
+    servo_set_angle(SERVO_FR_CH, deg); // Đã sửa thành xuôi chiều góc quay
 }
 static void set_bl(int deg)
 {
     cur.bl = deg;
-    servo_set_angle(SERVO_BL_CH, 180 - deg);
+    servo_set_angle(SERVO_BL_CH, deg); // Đã sửa thành xuôi chiều góc quay
 }
 static void set_br(int deg)
 {
@@ -159,7 +159,7 @@ void anim_good_boy(void)
     for (int i = 0; i < n; i++)
     {
         set_bl(wag_angles[i]);
-        set_br(180 - wag_angles[i]);
+        set_br(wag_angles[i]); // Đồng bộ hướng quay của BR theo trục mới
         delay_ms(wag_times[i]);
     }
 
@@ -302,45 +302,7 @@ void anim_dance(void)
     delay_ms(150);
     ease_to(lean_back, 400);
     delay_ms(150);
-
     ease_to((legs_t){90, 90, 90, 90}, 500);
     delay_ms(300);
-
-    // --- Move 3: Lie down ---
-    legs_t front = {60, 60, 90, 90};
-    legs_t all_down = {80, 80, 60, 60};
-    legs_t flat = {180, 180, 0, 0};
-
-    ease_to(front, 500);
-    delay_ms(150);
-    ease_to(all_down, 500);
-    delay_ms(100);
-    ease_to(flat, 700);
-    delay_ms(800); // dramatic hold
-
-    // --- Move 4: Floor shimmy — small leg wiggles while lying flat ---
-    // Front legs tap side to side, rear legs pulse
-    legs_t shimmy_a = {170, 180, 0, 10};
-    legs_t shimmy_b = {180, 170, 10, 0};
-
-    for (int i = 0; i < 5; i++)
-    {
-        ease_to(shimmy_a, 250);
-        delay_ms(50);
-        ease_to(shimmy_b, 250);
-        delay_ms(50);
-    }
-
-    ease_to(flat, 300);
-    delay_ms(400); // pause before getting up
-
-    // --- Move 5: Get back up ---
-    ease_to(all_down, 600);
-    delay_ms(150);
-    ease_to(front, 600);
-    delay_ms(150);
-    ease_to((legs_t){90, 90, 90, 90}, 600);
-    delay_ms(300);
-
     pwm_off_all();
 }
